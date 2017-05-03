@@ -36,9 +36,9 @@ func (s *scenario) errorMsg(expected, actual interface{}) string {
 		argList[i] = fmt.Sprint(in)
 	}
 
-	funcString := fmt.Sprintf("\n\t\t\t%8s : %s(%v)", "function", testName, strings.Join(argList, ", "))
-	expectedLine := fmt.Sprintf("\t\t\t%8s : %v", "expected", expected)
-	actualLine := fmt.Sprintf("\t\t\t%8s : %v", "actual", actual)
+	funcString := "\n" + formatKeyValueOutput("function", fmt.Sprintf("%s(%v)", testName, strings.Join(argList, ", ")))
+	expectedLine := formatKeyValueOutput("expected", expected)
+	actualLine := formatKeyValueOutput("actual", actual)
 	return funcString + "\n" + expectedLine + "\n" + actualLine
 
 }
