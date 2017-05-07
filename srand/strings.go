@@ -1,6 +1,10 @@
 package srand
 
-// AlphaNumeric returns an alphanumeric string
+// AlphaNumeric returns a new alphanumeric string
 func AlphaNumeric(n int) string {
-	return string(randomNOfSet(alphaNumeric, n))
+	s := make([]rune, n)
+	for i := 0; i < n; i++ {
+		s[i] = alphaNumeric[rng.Intn(n)%len(alphaNumeric)]
+	}
+	return string(s)
 }
