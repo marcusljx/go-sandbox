@@ -9,8 +9,8 @@ go:
 #services:
 #  - #any supported service
 #
-env:
-  - PROTOBUF_DL_URL=https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip PROTOC=~/protoc
+#env:
+#  - PROTOBUF_DL_URL=https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip PROTOC=~/protoc
 
 #matrix:
 
@@ -29,10 +29,10 @@ build:
 
     - go get -v ./...
     - go get -t -v ./...
-    - go test -v ./...
+    - go test -v ./... > shippable/testresults/result.txt
 
     - $GOPATH/bin/goverage -v -coverprofile=coverage.out ./...
-    - $GOPATH/bin/gocover-cobertura < coverage.out > coverage.xml
+    - $GOPATH/bin/gocover-cobertura < coverage.out > shippable/codecoverage/coverage.xml
 
 #  post_ci:
 #    - #command1
