@@ -6,3 +6,6 @@ Sandbox for go
 
 ## tabby
 Table Driven Unit Tests for Go
+
+## slackim
+Library for sending Slack messages via the Incoming-Webhooks integration 
