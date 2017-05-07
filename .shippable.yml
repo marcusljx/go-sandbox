@@ -9,8 +9,9 @@ go:
 #services:
 #  - #any supported service
 #
-#env:
-#  - PROTOBUF_DL_URL=https://github.com/google/protobuf/releases/download/v3.2.0/protoc-3.2.0-linux-x86_64.zip PROTOC=~/protoc
+env:
+  - TEST_RESULTS_DIR=./shippable/testresults
+  - COVERAGE_DIR=./shippable/codecoverage
 
 #matrix:
 
@@ -24,15 +25,20 @@ build:
 #    options:
 
   ci:
-    - go get -u github.com/haya14busa/goverage
-    - go get github.com/t-yuki/gocover-cobertura
+    - PATH=$PATH:$GOPATH/bin
+    - go get -u github.com/jstemmer/go-junit-report
+    - go get -u github.com/axw/gocov/...
+    - go get -u github.com/AlekSi/gocov-xml
+
+    - mkdir -p $TEST_RESULTS_DIR
+    - mkdir -p $COVERAGE_DIR
 
     - go get -v ./...
     - go get -t -v ./...
-    - go test -v ./... > shippable/testresults/result.txt
 
-    - $GOPATH/bin/goverage -v -coverprofile=coverage.out ./...
-    - $GOPATH/bin/gocover-cobertura < coverage.out > shippable/codecoverage/coverage.xml
+    - go test -v -coverprofile=coverage.out ... | tee test.out
+    - cat test.out | go-junit-report > $TEST_RESULTS_DIR/report.xml
+    - gocov convert coverage.out | gocov-xml > $COVERAGE_DIR/report.xml
 
 #  post_ci:
 #    - #command1
