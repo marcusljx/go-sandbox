@@ -35,10 +35,10 @@ func (w *WrappedFunction) Run(t *testing.T) {
 	}
 }
 
-// On creates a scenario based on the inputs.
+// Given creates a scenario based on the inputs.
 // This call should be immediately followed by an Expect() call.
-func (w *WrappedFunction) On(inputs ...interface{}) *OnEvent {
-	o := &OnEvent{
+func (w *WrappedFunction) Given(inputs ...interface{}) *GivenEvent {
+	o := &GivenEvent{
 		_w:          w,
 		subtestName: strings.Replace(fmt.Sprint(inputs...), " ", "_", -1),
 	}
