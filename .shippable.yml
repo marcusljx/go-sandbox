@@ -10,8 +10,6 @@ go:
 #  - #any supported service
 #
 env:
-  - TEST_RESULTS_DIR=./shippable/testresults
-  - COVERAGE_DIR=./shippable/codecoverage
 
 #matrix:
 
@@ -25,7 +23,10 @@ build:
 #    options:
 
   ci:
+    - TEST_RESULTS_DIR=./shippable/testresults
+    - COVERAGE_DIR=./shippable/codecoverage
     - PATH=$PATH:$GOPATH/bin
+
     - go get -u github.com/jstemmer/go-junit-report
     - go get -u github.com/axw/gocov/...
     - go get -u github.com/AlekSi/gocov-xml
