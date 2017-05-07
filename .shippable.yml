@@ -24,18 +24,15 @@ build:
 #    options:
 
   ci:
-#    - wget $PROTOBUF_DL_URL
-#    - unzip protoc-* -d $PROTOC
-#    - export PATH=$PATH:$PROTOC/bin
-#
-#    - go get -u -v google.golang.org/grpc
-#    - go get -u -v github.com/golang/protobuf/{proto,protoc-gen-go}
-#    - export PATH=$PATH:$GOPATH/bin
+    - go get -u github.com/haya14busa/goverage
+    - go get github.com/t-yuki/gocover-cobertura
 
-#    - go generate -x
     - go get -v ./...
     - go get -t -v ./...
     - go test -v ./...
+
+    - $GOPATH/bin/goverage -v -coverprofile=coverage.out ./...
+    - $GOPATH/bin/gocover-cobertura < coverage.out > coverage.xml
 
 #  post_ci:
 #    - #command1
