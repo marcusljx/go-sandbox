@@ -3,32 +3,40 @@ package slackim
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
+	"github.com/marcusljx/go-sandbox/tabby"
 )
 
 func TestMonospace(t *testing.T) {
-	require.Equal(t, "`HelloWorld`", Monospace("HelloWorld"))
-	require.Equal(t, "``", Monospace(""))
-	require.Equal(t, "`Hello World`", Monospace("Hello World"))
-	require.Equal(t, "`123456.654321`", Monospace(123456.654321))
+	tabby.Func(Monospace).
+		On("HelloWorld").Expect("`HelloWorld`").
+		On("").Expect("``").
+		On("Hello World").Expect("`Hello World`").
+		On(123456.654321).Expect("`123456.654321`").
+		Run(t)
 }
 
 func TestCode(t *testing.T) {
-	require.Equal(t, "```\nHelloWorld\n```", Code("HelloWorld"))
-	require.Equal(t, "```\n\n```", Code(""))
-	require.Equal(t, "```\nHello World\n```", Code("Hello World"))
-	require.Equal(t, "```\n123456.654321\n```", Code(123456.654321))
+	tabby.Func(Code).
+		On("HelloWorld").Expect("```\nHelloWorld\n```").
+		On("").Expect("```\n\n```").
+		On("Hello World").Expect("```\nHello World\n```").
+		On(123456.654321).Expect("```\n123456.654321\n```").
+		Run(t)
 }
 
 func TestHyperlink(t *testing.T) {
-	require.Equal(t, "<URL|text>", Hyperlink("text", "URL"))
-	require.Equal(t, "<http://www.google.com|>", Hyperlink("", "http://www.google.com"))
+	tabby.Func(Hyperlink).
+		On("text", "URL").Expect("<URL|text>").
+		On("", "http://www.google.com").Expect("<http://www.google.com|>").
+		Run(t)
 }
 
 func TestFindInList(t *testing.T) {
 	list := []string{"Hello", "World", "Whatsup"}
-	require.Equal(t, -1, findInList(list, "hi"))
-	require.Equal(t, 0, findInList(list, "Hello"))
-	require.Equal(t, 1, findInList(list, "World"))
-	require.Equal(t, 2, findInList(list, "Whatsup"))
+	tabby.Func(findInList).
+		On(list, "hi").Expect(-1).
+		On(list, "Hello").Expect(0).
+		On(list, "World").Expect(1).
+		On(list, "Whatsup").Expect(2).
+		Run(t)
 }
