@@ -7,5 +7,8 @@ Sandbox for go
 ## tabby
 Table Driven Unit Tests for Go
 
+## srand
+Library of random string generators for a variety of purposes
+
 ## slackim
 Library for sending Slack messages via the Incoming-Webhooks integration 

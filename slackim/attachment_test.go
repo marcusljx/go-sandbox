@@ -3,7 +3,7 @@ package slackim
 import (
 	"testing"
 
-	"github.com/myteksi/go/automation/gandalf/engine/glamdring/trand"
+	"github.com/marcusljx/go-sandbox/srand"
 	"github.com/stretchr/testify/require"
 )
 
@@ -21,19 +21,19 @@ func TestNewAttachment(t *testing.T) {
 func TestAttachment_Setters(t *testing.T) {
 	a := &Attachment{}
 
-	str := trand.AlphaNumericString(randStringLength)
+	str := srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.Color)
 	a.SetColor(str)
 	require.Equal(t, str, a.Color)
 
-	str = trand.AlphaNumericString(randStringLength)
+	str = srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.Pretext)
 	a.SetPretext(str, false)
 	require.Equal(t, str, a.Pretext)
 
-	str1 := trand.AlphaNumericString(randStringLength)
-	str2 := trand.AlphaNumericString(randStringLength)
-	str3 := trand.AlphaNumericString(randStringLength)
+	str1 := srand.AlphaNumeric(randStringLength)
+	str2 := srand.AlphaNumeric(randStringLength)
+	str3 := srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.AuthorName)
 	require.Equal(t, "", a.AuthorLink)
 	require.Equal(t, "", a.AuthorIcon)
@@ -42,26 +42,26 @@ func TestAttachment_Setters(t *testing.T) {
 	require.Equal(t, str2, a.AuthorLink)
 	require.Equal(t, str3, a.AuthorIcon)
 
-	str1 = trand.AlphaNumericString(randStringLength)
-	str2 = trand.AlphaNumericString(randStringLength)
+	str1 = srand.AlphaNumeric(randStringLength)
+	str2 = srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.Title)
 	require.Equal(t, "", a.TitleLink)
 	a.SetTitle(str1, str2, false)
 	require.Equal(t, str1, a.Title)
 	require.Equal(t, str2, a.TitleLink)
 
-	str = trand.AlphaNumericString(randStringLength)
+	str = srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.ImageURL)
 	a.SetImage(str)
 	require.Equal(t, str, a.ImageURL)
 
-	str = trand.AlphaNumericString(randStringLength)
+	str = srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.ThumbURL)
 	a.SetThumbnail(str)
 	require.Equal(t, str, a.ThumbURL)
 
-	str1 = trand.AlphaNumericString(randStringLength)
-	str2 = trand.AlphaNumericString(randStringLength)
+	str1 = srand.AlphaNumeric(randStringLength)
+	str2 = srand.AlphaNumeric(randStringLength)
 	require.Equal(t, "", a.Footer)
 	require.Equal(t, "", a.FooterIcon)
 	a.SetFooter(str1, str2)
