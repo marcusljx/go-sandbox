@@ -27,6 +27,7 @@ build:
     - COVERAGE_DIR=./shippable/codecoverage
     - PATH=$PATH:$GOPATH/bin
 
+    - go get -u github.com/haya14busa/goverage
     - go get -u github.com/jstemmer/go-junit-report
     - go get -u github.com/axw/gocov/...
     - go get -u github.com/AlekSi/gocov-xml
@@ -37,7 +38,7 @@ build:
     - go get -v ./...
     - go get -t -v ./...
 
-    - go test -v -coverprofile=coverage.out ... | tee test.out
+    - goverage -v -coverprofile=coverage.out ./... | tee test.out
     - cat test.out | go-junit-report > $TEST_RESULTS_DIR/report.xml
     - gocov convert coverage.out | gocov-xml > $COVERAGE_DIR/report.xml
 
