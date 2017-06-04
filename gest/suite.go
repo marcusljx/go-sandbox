@@ -7,7 +7,7 @@ import (
 
 // Suite is a builder type for wrapping test cases with SetUp and TearDown methods
 type Suite struct {
-	Name string
+	Name string `json:"name"`
 
 	setUpTestFunc    func(*testing.T)
 	tearDownTestFunc func(*testing.T)
