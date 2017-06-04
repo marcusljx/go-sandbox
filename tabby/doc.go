@@ -1,2 +1,2 @@
-// Package tt is a framework for writing table-driven tests
+// Package tabby is a framework for writing table-driven tests
 package tabby
