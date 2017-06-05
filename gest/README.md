@@ -30,7 +30,8 @@ Each new `gest` Suite supports the following:
 - [x] BenchmarkTearDown (runs on every iteration, not a general "after whole case") `// See TODO`
 - [x] ExampleSetUp
 - [x] ExampleTearDown
-
-## `TODO`
 - [x] BenchmarkCaseSetUp
 - [x] BenchmarkCaseTearDown
+
+## `TODO`
+- [ ] Test/Benchmark/Example Function name injection into setup/teardown methods (breaks API)
