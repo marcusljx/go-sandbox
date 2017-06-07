@@ -62,12 +62,14 @@ func TestSample(t *testing.T) {
 	testSignature = testMsg
 }
 
-func testSetUp(t *testing.T) {
+func testSetUp(t *testing.T, name string) {
+	log.Printf("SETUP:%v", name)
 	require.Equal(t, "", testSignature)
 	testSignature = setupMsg
 }
 
-func testTearDown(t *testing.T) {
+func testTearDown(t *testing.T, name string) {
+	log.Printf("TEARDOWN:%v", name)
 	require.Equal(t, testMsg, testSignature)
 	testSignature = TearDownMsg
 }
@@ -78,12 +80,14 @@ func BenchmarkSample(b *testing.B) {
 	benchmarkSignature++
 }
 
-func benchmarkSetUp(b *testing.B) {
+func benchmarkSetUp(b *testing.B, name string) {
+	log.Printf("SETUP:%v", name)
 	require.True(b, benchmarkSignature%3 == 0, "BenchmarkSample was not correct : [%v]", benchmarkSignature)
 	benchmarkSignature++
 }
 
-func benchmarkTearDown(b *testing.B) {
+func benchmarkTearDown(b *testing.B, name string) {
+	log.Printf("TEARDOWN:%v", name)
 	require.True(b, (benchmarkSignature-2)%3 == 0, "BenchmarkSample was not correct : [%v]", benchmarkSignature)
 	benchmarkSignature++
 }
@@ -98,12 +102,14 @@ func ExampleSample() {
 	// During TearDown : TEARDOWN WAS HIT
 }
 
-func exampleSetUp() {
+func exampleSetUp(name string) {
+	log.Printf("SETUP:%v", name)
 	exampleSignature = setupMsg
 	fmt.Printf("During SetUp : %s\n", exampleSignature)
 }
 
-func exampleTearDown() {
+func exampleTearDown(name string) {
+	log.Printf("TEARDOWN:%v", name)
 	exampleSignature = TearDownMsg
 	fmt.Printf("During TearDown : %s\n", exampleSignature)
 }

@@ -9,14 +9,14 @@ import (
 type Suite struct {
 	Name string `json:"name"`
 
-	setUpTestFunc    func(*testing.T)
-	tearDownTestFunc func(*testing.T)
+	setUpTestFunc    func(*testing.T, string)
+	tearDownTestFunc func(*testing.T, string)
 
-	setUpBenchmarkFunc    func(*testing.B)
-	tearDownBenchmarkFunc func(*testing.B)
+	setUpBenchmarkFunc    func(*testing.B, string)
+	tearDownBenchmarkFunc func(*testing.B, string)
 
-	setUpExampleFunc    func()
-	tearDownExampleFunc func()
+	setUpExampleFunc    func(string)
+	tearDownExampleFunc func(string)
 }
 
 // New begins a new Suite
@@ -26,38 +26,54 @@ func New(name string) *Suite {
 	}
 }
 
-// TestSetUp adds a Set Up method for Tests
-func (s *Suite) TestSetUp(BeforeEachTestFunc func(*testing.T)) *Suite {
+// TestSetUp adds a Set Up method for Tests.
+// Inputs:
+//   - *testing.T object
+//   - string representing the test name
+func (s *Suite) TestSetUp(BeforeEachTestFunc func(*testing.T, string)) *Suite {
 	s.setUpTestFunc = BeforeEachTestFunc
 	return s
 }
 
 // TestTearDown adds a Tear Down method for Tests
-func (s *Suite) TestTearDown(AfterEachTestFunc func(*testing.T)) *Suite {
+// Inputs:
+//   - *testing.T object
+//   - string representing the test name
+func (s *Suite) TestTearDown(AfterEachTestFunc func(*testing.T, string)) *Suite {
 	s.tearDownTestFunc = AfterEachTestFunc
 	return s
 }
 
 // BenchmarkSetUp adds a Set Up method for Benchmarks
-func (s *Suite) BenchmarkSetUp(BeforeEachBenchmarkFunc func(*testing.B)) *Suite {
+// Inputs:
+//   - *testing.B object
+//   - string representing the Benchmark name
+func (s *Suite) BenchmarkSetUp(BeforeEachBenchmarkFunc func(*testing.B, string)) *Suite {
 	s.setUpBenchmarkFunc = BeforeEachBenchmarkFunc
 	return s
 }
 
 // BenchmarkTearDown adds a Tear Down method for Benchmarks
-func (s *Suite) BenchmarkTearDown(AfterEachBenchmarkFunc func(*testing.B)) *Suite {
+// Inputs:
+//   - *testing.B object
+//   - string representing the Benchmark name
+func (s *Suite) BenchmarkTearDown(AfterEachBenchmarkFunc func(*testing.B, string)) *Suite {
 	s.tearDownBenchmarkFunc = AfterEachBenchmarkFunc
 	return s
 }
 
 // ExampleSetUp adds a Set Up method for Examples
-func (s *Suite) ExampleSetUp(BeforeEachExampleFunc func()) *Suite {
+// Inputs:
+//   - string representing the Example name
+func (s *Suite) ExampleSetUp(BeforeEachExampleFunc func(string)) *Suite {
 	s.setUpExampleFunc = BeforeEachExampleFunc
 	return s
 }
 
 // ExampleTearDown adds a Tear Down method for Examples
-func (s *Suite) ExampleTearDown(AfterEachExampleFunc func()) *Suite {
+// Inputs:
+//   - string representing the Example name
+func (s *Suite) ExampleTearDown(AfterEachExampleFunc func(string)) *Suite {
 	s.tearDownExampleFunc = AfterEachExampleFunc
 	return s
 }

@@ -10,11 +10,12 @@ func (s *Suite) bindTests(tests []testing.InternalTest) (bindedTests []testing.I
 		// make copies1
 		newC := c
 		newF := c.F
+		newName := c.Name
 
 		// wrap test with setup and teardown
 		newC.F = func(t *testing.T) {
-			s.setUpTestFunc(t)
-			defer s.tearDownTestFunc(t)
+			s.setUpTestFunc(t, newName)
+			defer s.tearDownTestFunc(t, newName)
 			newF(t)
 		}
 		bindedTests = append(bindedTests, newC)
@@ -28,10 +29,11 @@ func (s *Suite) bindBenchmarks(benchmarks []testing.InternalBenchmark) (bindedBe
 		// make copies1
 		newC := c
 		newF := c.F
+		newName := c.Name
 
 		newC.F = func(b *testing.B) {
-			s.setUpBenchmarkFunc(b)
-			defer s.tearDownBenchmarkFunc(b)
+			s.setUpBenchmarkFunc(b, newName)
+			defer s.tearDownBenchmarkFunc(b, newName)
 			newF(b)
 		}
 		bindedBenchmarks = append(bindedBenchmarks, newC)
@@ -45,10 +47,11 @@ func (s *Suite) bindExamples(examples []testing.InternalExample) (bindedExamples
 		// make copies1
 		newC := c
 		newF := c.F
+		newName := c.Name
 
 		newC.F = func() {
-			s.setUpExampleFunc()
-			defer s.tearDownExampleFunc()
+			s.setUpExampleFunc(newName)
+			defer s.tearDownExampleFunc(newName)
 			newF()
 		}
 		bindedExamples = append(bindedExamples, newC)
